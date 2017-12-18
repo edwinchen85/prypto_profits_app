@@ -4,6 +4,27 @@ import Home from './Home';
 import Results from './Results';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      location: 'Home'
+    }
+    this.routingSystem = this.routingSystem.bind(this);
+  }
+
+  routingSystem() {
+    switch(this.state.location) {
+      case 'Home':
+        return <Home />;
+        break;
+      case 'Results':
+        return <Results />;
+        break;
+      default:
+        return <Home />;
+    }
+  }
+
   render() {
     return (
       <div>
@@ -17,7 +38,7 @@ class App extends Component {
               <a href="#" className="main-btn">Register</a>
             </nav>
           </header>
-          <Results />
+          {this.routingSystem()}
         </div>
       </div>
     );

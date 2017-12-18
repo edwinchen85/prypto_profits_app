@@ -165,10 +165,30 @@ var App = function (_Component) {
   function App() {
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+
+    _this.state = {
+      location: 'Home'
+    };
+    _this.routingSystem = _this.routingSystem.bind(_this);
+    return _this;
   }
 
   _createClass(App, [{
+    key: 'routingSystem',
+    value: function routingSystem() {
+      switch (this.state.location) {
+        case 'Home':
+          return _react2.default.createElement(_Home2.default, null);
+          break;
+        case 'Results':
+          return _react2.default.createElement(_Results2.default, null);
+          break;
+        default:
+          return _react2.default.createElement(_Home2.default, null);
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -195,7 +215,7 @@ var App = function (_Component) {
               )
             )
           ),
-          _react2.default.createElement(_Results2.default, null)
+          this.routingSystem()
         )
       );
     }
