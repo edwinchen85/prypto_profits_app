@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Home from './Home';
+import Results from './Results';
 
 class App extends Component {
   render() {
@@ -13,10 +14,10 @@ class App extends Component {
             </div>
 
             <nav className="menu">
-              <a href="#">Register</a>
+              <a href="#" className="main-btn">Register</a>
             </nav>
           </header>
-          <Home />
+          <Results />
         </div>
       </div>
     );

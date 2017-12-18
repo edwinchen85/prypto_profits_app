@@ -23,19 +23,24 @@ header {
   .menu {
     display: inline-block;
     float: right;
+  }
+}
 
-    a {
-      color: white;
-      text-decoration: none;
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 3px;
-      border: 1px solid #304ffe;
-      transition: all .5s ease-out;
+.main-btn {
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 3px;
+  border: 1px solid #304ffe;
+  transition: all .5s ease-out;
 
-      &:hover {
-        background: #304ffe;
-      }
-    }
+  &:hover {
+    background: #304ffe;
+  }
+
+  &.active {
+    background: #304ffe;
+    margin: 0 auto;
   }
 }

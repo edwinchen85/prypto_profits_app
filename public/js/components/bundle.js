@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(25);
+var _react = __webpack_require__(20);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -62,7 +62,72 @@ exports.default = Home;
 
 /***/ }),
 
-/***/ 98:
+/***/ 97:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(20);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Results = function Results() {
+  return _react2.default.createElement(
+    "section",
+    { id: "results" },
+    _react2.default.createElement(
+      "div",
+      { className: "container" },
+      _react2.default.createElement(
+        "div",
+        { className: "col-md-12" },
+        _react2.default.createElement("div", { className: "ads" })
+      ),
+      _react2.default.createElement(
+        "div",
+        { className: "col-md-12" },
+        _react2.default.createElement(
+          "h3",
+          null,
+          "Your $1200 dollar investment is now "
+        ),
+        _react2.default.createElement(
+          "h1",
+          null,
+          "$7300"
+        ),
+        _react2.default.createElement(
+          "h4",
+          null,
+          "You made 400% profit"
+        ),
+        _react2.default.createElement(
+          "a",
+          { href: "#", className: "main-btn active" },
+          "Create account to keep track of all your records"
+        )
+      ),
+      _react2.default.createElement(
+        "div",
+        { className: "col-md-12" },
+        _react2.default.createElement("div", { className: "ads" })
+      )
+    )
+  );
+};
+
+exports.default = Results;
+
+/***/ }),
+
+/***/ 99:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -70,7 +135,7 @@ exports.default = Home;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(25);
+var _react = __webpack_require__(20);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -81,6 +146,10 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 var _Home = __webpack_require__(96);
 
 var _Home2 = _interopRequireDefault(_Home);
+
+var _Results = __webpack_require__(97);
+
+var _Results2 = _interopRequireDefault(_Results);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -121,12 +190,12 @@ var App = function (_Component) {
               { className: 'menu' },
               _react2.default.createElement(
                 'a',
-                { href: '#' },
+                { href: '#', className: 'main-btn' },
                 'Register'
               )
             )
           ),
-          _react2.default.createElement(_Home2.default, null)
+          _react2.default.createElement(_Results2.default, null)
         )
       );
     }
@@ -139,4 +208,4 @@ _reactDom2.default.render(_react2.default.createElement(App, null), document.get
 
 /***/ })
 
-},[98]);
+},[99]);
