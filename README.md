@@ -1,0 +1,1 @@
+# Prypto Profits App
