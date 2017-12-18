@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Home from './Home';
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
               <a href="#">Register</a>
             </nav>
           </header>
+          <Home />
         </div>
       </div>
     );
