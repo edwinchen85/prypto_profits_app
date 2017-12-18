@@ -49,6 +49,15 @@ var App = function (_Component) {
               'div',
               { className: 'logo' },
               'Prypto Profits'
+            ),
+            _react2.default.createElement(
+              'nav',
+              { className: 'menu' },
+              _react2.default.createElement(
+                'a',
+                { href: '#' },
+                'Register'
+              )
             )
           )
         )
