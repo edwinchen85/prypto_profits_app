@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 96:
+/***/ 222:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10,48 +10,56 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(20);
+var _react = __webpack_require__(11);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDatepicker = __webpack_require__(61);
+
+var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
+
+var _moment = __webpack_require__(0);
+
+var _moment2 = _interopRequireDefault(_moment);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Home = function Home() {
+var Home = function Home(props) {
   return _react2.default.createElement(
-    "section",
-    { id: "home" },
+    'section',
+    { id: 'home' },
     _react2.default.createElement(
-      "div",
-      { className: "container" },
+      'div',
+      { className: 'container' },
       _react2.default.createElement(
-        "div",
-        { className: "col-md-6" },
-        _react2.default.createElement("img", { className: "bitcoin-logo", src: "/img/bitcoin-logo.png", alt: "bitcoin-logo" })
+        'div',
+        { className: 'col-md-6' },
+        _react2.default.createElement('img', { className: 'bitcoin-logo', src: '/img/bitcoin-logo.png', alt: 'bitcoin-logo' })
       ),
       _react2.default.createElement(
-        "div",
-        { className: "col-md-6" },
+        'div',
+        { className: 'col-md-6' },
         _react2.default.createElement(
-          "h2",
+          'h2',
           null,
-          "Enter Transaction"
+          'Enter Transaction'
         ),
         _react2.default.createElement(
-          "label",
-          { htmlFor: "amount" },
-          "Crypto amount"
+          'label',
+          { htmlFor: 'amount' },
+          'Crypto amount'
         ),
-        _react2.default.createElement("input", { type: "text", name: "amount", id: "amount" }),
+        _react2.default.createElement('input', { type: 'text', name: 'amount', id: 'amount' }),
         _react2.default.createElement(
-          "label",
-          { htmlFor: "date" },
-          "Date"
+          'label',
+          { htmlFor: 'date' },
+          'Date'
         ),
-        _react2.default.createElement("input", { type: "text", name: "date", id: "date" }),
+        _react2.default.createElement(_reactDatepicker2.default, { selected: props.globalState.date, onChange: props.handleDateChange }),
         _react2.default.createElement(
-          "button",
-          { type: "submit" },
-          "Check Profits"
+          'button',
+          { type: 'submit' },
+          'Check Profits'
         )
       )
     )
@@ -62,7 +70,7 @@ exports.default = Home;
 
 /***/ }),
 
-/***/ 97:
+/***/ 223:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -72,7 +80,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(20);
+var _react = __webpack_require__(11);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -127,7 +135,7 @@ exports.default = Results;
 
 /***/ }),
 
-/***/ 99:
+/***/ 225:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -135,19 +143,27 @@ exports.default = Results;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(20);
+var _react = __webpack_require__(11);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(33);
+var _reactDom = __webpack_require__(28);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Home = __webpack_require__(96);
+var _reactDatepicker = __webpack_require__(61);
+
+var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
+
+var _moment = __webpack_require__(0);
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _Home = __webpack_require__(222);
 
 var _Home2 = _interopRequireDefault(_Home);
 
-var _Results = __webpack_require__(97);
+var _Results = __webpack_require__(223);
 
 var _Results2 = _interopRequireDefault(_Results);
 
@@ -168,9 +184,11 @@ var App = function (_Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
     _this.state = {
-      location: 'Home'
+      location: 'Home',
+      date: (0, _moment2.default)()
     };
     _this.routingSystem = _this.routingSystem.bind(_this);
+    _this.handleDateChange = _this.handleDateChange.bind(_this);
     return _this;
   }
 
@@ -179,7 +197,7 @@ var App = function (_Component) {
     value: function routingSystem() {
       switch (this.state.location) {
         case 'Home':
-          return _react2.default.createElement(_Home2.default, null);
+          return _react2.default.createElement(_Home2.default, { handleDateChange: this.handleDateChange, globalState: this.state });
           break;
         case 'Results':
           return _react2.default.createElement(_Results2.default, null);
@@ -187,6 +205,17 @@ var App = function (_Component) {
         default:
           return _react2.default.createElement(_Home2.default, null);
       }
+    }
+  }, {
+    key: 'handleDateChange',
+    value: function handleDateChange(date) {
+      var _this2 = this;
+
+      this.setState({
+        date: date
+      }, function () {
+        return console.log(_this2.state);
+      });
     }
   }, {
     key: 'render',
@@ -228,4 +257,4 @@ _reactDom2.default.render(_react2.default.createElement(App, null), document.get
 
 /***/ })
 
-},[99]);
+},[225]);
