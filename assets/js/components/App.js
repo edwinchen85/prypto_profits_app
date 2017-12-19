@@ -19,6 +19,19 @@ class App extends Component {
     this.apiCall = this.apiCall.bind(this);
   }
 
+  componentWillMount() {
+    var self = this;
+    axios.get(`https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=${moment().unix()}&extraParams=crypto_profits`)
+      .then(function(response) {
+        self.setState({
+          btcToday: response.data.BTC
+        }, () => console.log(self.state));
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
+
   routingSystem() {
     switch(this.state.location) {
       case 'Home':
@@ -40,11 +53,31 @@ class App extends Component {
 
   apiCall() {
     var self = this;
-    axios.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=1513713209&extraParams=crypto_profits')
+    axios.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=1509713209&extraParams=crypto_profits')
       .then(function(response) {
         self.setState({
           data: response.data.BTC
-        }, () => console.log(self.state));
+        }, () => {
+          // CP = COST PRICE
+          // SP = SELLING PRICE
+          // GAIN = SP - CP
+          // GAIN% = (GAIN / CP) * 100
+          // LOSS = CP - SP
+          // LOSS% = (LOSS / CP)
+          const CP = self.state.data.USD;
+          const SP = self.state.btcToday.USD;
+          if (CP < SP) {
+            let gain = SP - CP;
+            let gainPercent = (gain / CP) * 100;
+            gainPercent = gainPercent.toFixed(2);
+            console.log(`Profit percent is ${gainPercent}`);
+          } else {
+            let loss = CP - SP;
+            let lossPercent = (loss / CP) * 100;
+            lossPercent = lossPercent.toFixed(2);
+            console.log(`Loss percent is ${lossPercent}`);
+          }
+        });
       })
       .catch(function(error) {
         console.log(error);

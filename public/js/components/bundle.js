@@ -199,6 +199,20 @@ var App = function (_Component) {
   }
 
   _createClass(App, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var self = this;
+      _axios2.default.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=' + (0, _moment2.default)().unix() + '&extraParams=crypto_profits').then(function (response) {
+        self.setState({
+          btcToday: response.data.BTC
+        }, function () {
+          return console.log(self.state);
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: 'routingSystem',
     value: function routingSystem() {
       switch (this.state.location) {
@@ -227,11 +241,29 @@ var App = function (_Component) {
     key: 'apiCall',
     value: function apiCall() {
       var self = this;
-      _axios2.default.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=1513713209&extraParams=crypto_profits').then(function (response) {
+      _axios2.default.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=1509713209&extraParams=crypto_profits').then(function (response) {
         self.setState({
           data: response.data.BTC
         }, function () {
-          return console.log(self.state);
+          // CP = COST PRICE
+          // SP = SELLING PRICE
+          // GAIN = SP - CP
+          // GAIN% = (GAIN / CP) * 100
+          // LOSS = CP - SP
+          // LOSS% = (LOSS / CP)
+          var CP = self.state.data.USD;
+          var SP = self.state.btcToday.USD;
+          if (CP < SP) {
+            var gain = SP - CP;
+            var gainPercent = gain / CP * 100;
+            gainPercent = gainPercent.toFixed(2);
+            console.log('Profit percent is ' + gainPercent);
+          } else {
+            var loss = CP - SP;
+            var lossPercent = loss / CP * 100;
+            lossPercent = lossPercent.toFixed(2);
+            console.log('Loss percent is ' + lossPercent);
+          }
         });
       }).catch(function (error) {
         console.log(error);
