@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 222:
+/***/ 230:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10,11 +10,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(11);
+var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDatepicker = __webpack_require__(61);
+var _reactDatepicker = __webpack_require__(63);
 
 var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
 
@@ -70,7 +70,7 @@ exports.default = Home;
 
 /***/ }),
 
-/***/ 223:
+/***/ 231:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80,7 +80,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(11);
+var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -135,7 +135,7 @@ exports.default = Results;
 
 /***/ }),
 
-/***/ 225:
+/***/ 250:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -143,15 +143,15 @@ exports.default = Results;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(11);
+var _react = __webpack_require__(12);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(28);
+var _reactDom = __webpack_require__(29);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactDatepicker = __webpack_require__(61);
+var _reactDatepicker = __webpack_require__(63);
 
 var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
 
@@ -159,11 +159,15 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _Home = __webpack_require__(222);
+var _axios = __webpack_require__(229);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _Home = __webpack_require__(230);
 
 var _Home2 = _interopRequireDefault(_Home);
 
-var _Results = __webpack_require__(223);
+var _Results = __webpack_require__(231);
 
 var _Results2 = _interopRequireDefault(_Results);
 
@@ -185,10 +189,12 @@ var App = function (_Component) {
 
     _this.state = {
       location: 'Home',
-      date: (0, _moment2.default)()
+      date: (0, _moment2.default)(),
+      data: ''
     };
     _this.routingSystem = _this.routingSystem.bind(_this);
     _this.handleDateChange = _this.handleDateChange.bind(_this);
+    _this.apiCall = _this.apiCall.bind(_this);
     return _this;
   }
 
@@ -214,7 +220,21 @@ var App = function (_Component) {
       this.setState({
         date: date
       }, function () {
-        return console.log(_this2.state);
+        return console.log(_this2.state.date.unix());
+      });
+    }
+  }, {
+    key: 'apiCall',
+    value: function apiCall() {
+      var self = this;
+      _axios2.default.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=BTC,USD,EUR&ts=1513713209&extraParams=crypto_profits').then(function (response) {
+        self.setState({
+          data: response.data.BTC
+        }, function () {
+          return console.log(self.state);
+        });
+      }).catch(function (error) {
+        console.log(error);
       });
     }
   }, {
@@ -231,7 +251,7 @@ var App = function (_Component) {
             null,
             _react2.default.createElement(
               'div',
-              { className: 'logo' },
+              { className: 'logo', onClick: this.apiCall },
               'Prypto Profits'
             ),
             _react2.default.createElement(
@@ -257,4 +277,4 @@ _reactDom2.default.render(_react2.default.createElement(App, null), document.get
 
 /***/ })
 
-},[225]);
+},[250]);
