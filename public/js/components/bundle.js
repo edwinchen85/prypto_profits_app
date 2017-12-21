@@ -60,7 +60,7 @@ var Home = function Home(props) {
         _react2.default.createElement(_reactDatepicker2.default, { selected: props.globalState.date, onChange: props.handleDateChange }),
         _react2.default.createElement(
           'button',
-          { type: 'submit' },
+          { type: 'submit', onClick: props.apiCall },
           'Check Profits'
         )
       )
@@ -88,7 +88,14 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Results = function Results() {
+var Results = function Results(props) {
+  var status = props.globalState.status;
+  var _props$globalState$to = props.globalState.totalStatus,
+      gainPercent = _props$globalState$to.gainPercent,
+      lossPercent = _props$globalState$to.lossPercent,
+      newCP = _props$globalState$to.newCP,
+      newSP = _props$globalState$to.newSP;
+
   return _react2.default.createElement(
     "section",
     { id: "results" },
@@ -106,22 +113,31 @@ var Results = function Results() {
         _react2.default.createElement(
           "h3",
           null,
-          "Your $1200 dollar investment is now "
+          "Your $",
+          newCP,
+          " dollar investment is now "
         ),
         _react2.default.createElement(
           "h1",
           null,
-          "$7300"
+          "$",
+          newSP
         ),
         _react2.default.createElement(
           "h4",
           null,
-          "You made 400% profit"
+          "You made ",
+          status === 'gain' ? gainPercent + "% profit" : lossPercent + "% loss"
         ),
         _react2.default.createElement(
           "a",
           { href: "#", className: "main-btn active" },
           "Create account to keep track of all your records"
+        ),
+        _react2.default.createElement(
+          "a",
+          { href: "#", className: "main-btn", onClick: props.reset },
+          "Or check another transaction."
         )
       ),
       _react2.default.createElement(
@@ -193,12 +209,15 @@ var App = function (_Component) {
       location: 'Home',
       date: (0, _moment2.default)(),
       data: '',
-      cryptoAmount: 1
+      cryptoAmount: 1,
+      status: '',
+      totalStatus: ''
     };
     _this.routingSystem = _this.routingSystem.bind(_this);
     _this.handleDateChange = _this.handleDateChange.bind(_this);
     _this.apiCall = _this.apiCall.bind(_this);
     _this.onInputChange = _this.onInputChange.bind(_this);
+    _this.reset = _this.reset.bind(_this);
     return _this;
   }
 
@@ -224,10 +243,11 @@ var App = function (_Component) {
           return _react2.default.createElement(_Home2.default, {
             handleDateChange: this.handleDateChange,
             globalState: this.state,
-            onInputChange: this.onInputChange });
+            onInputChange: this.onInputChange,
+            apiCall: this.apiCall });
           break;
         case 'Results':
-          return _react2.default.createElement(_Results2.default, null);
+          return _react2.default.createElement(_Results2.default, { globalState: this.state, reset: this.reset });
           break;
         default:
           return _react2.default.createElement(_Home2.default, null);
@@ -276,15 +296,53 @@ var App = function (_Component) {
             var gainPercent = gain / newCP * 100;
             gainPercent = gainPercent.toFixed(2);
             console.log('Profit percent is ' + gainPercent);
+
+            // set state with totals and change location
+            self.setState({
+              location: 'Results',
+              status: 'gain',
+              totalStatus: {
+                newCP: newCP.toFixed(2),
+                newSP: newSP.toFixed(2),
+                gainPercent: gainPercent
+              }
+            }, function () {
+              return console.log(self.state);
+            });
           } else {
             var loss = newCP - newSP;
             var lossPercent = loss / newCP * 100;
             lossPercent = lossPercent.toFixed(2);
             console.log('Loss percent is ' + lossPercent);
+
+            // set state with totals and change location
+            self.setState({
+              location: 'Results',
+              status: 'loss',
+              totalStatus: {
+                newCP: newCP.toFixed(2),
+                newSP: newSP.toFixed(2),
+                lossPercent: lossPercent
+              }
+            }, function () {
+              return console.log(self.state);
+            });
           }
         });
       }).catch(function (error) {
         console.log(error);
+      });
+    }
+  }, {
+    key: 'reset',
+    value: function reset() {
+      this.setState({
+        location: 'Home',
+        date: (0, _moment2.default)(),
+        data: '',
+        cryptoAmount: 1,
+        status: '',
+        totalStatus: ''
       });
     }
   }, {

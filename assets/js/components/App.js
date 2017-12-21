@@ -13,12 +13,15 @@ class App extends Component {
       location: 'Home',
       date: moment(),
       data: '',
-      cryptoAmount: 1
+      cryptoAmount: 1,
+      status: '',
+      totalStatus: ''
     }
     this.routingSystem = this.routingSystem.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.apiCall = this.apiCall.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   componentWillMount() {
@@ -40,10 +43,11 @@ class App extends Component {
         return <Home
           handleDateChange={this.handleDateChange}
           globalState={this.state}
-          onInputChange={this.onInputChange} />;
+          onInputChange={this.onInputChange}
+          apiCall={this.apiCall} />;
         break;
       case 'Results':
-        return <Results />;
+        return <Results globalState={this.state} reset={this.reset} />;
         break;
       default:
         return <Home />;
@@ -86,17 +90,50 @@ class App extends Component {
             let gainPercent = (gain / newCP) * 100;
             gainPercent = gainPercent.toFixed(2);
             console.log(`Profit percent is ${gainPercent}`);
+
+            // set state with totals and change location
+            self.setState({
+              location: 'Results',
+              status: 'gain',
+              totalStatus: {
+                newCP: newCP.toFixed(2),
+                newSP: newSP.toFixed(2),
+                gainPercent
+              }
+            }, () => console.log(self.state));
           } else {
             let loss = newCP - newSP;
             let lossPercent = (loss / newCP) * 100;
             lossPercent = lossPercent.toFixed(2);
             console.log(`Loss percent is ${lossPercent}`);
+
+            // set state with totals and change location
+            self.setState({
+              location: 'Results',
+              status: 'loss',
+              totalStatus: {
+                newCP: newCP.toFixed(2),
+                newSP: newSP.toFixed(2),
+                lossPercent
+              }
+            }, () => console.log(self.state));
           }
         });
       })
       .catch(function(error) {
         console.log(error);
       });
+  }
+
+  reset() {
+    this.setState({
+      location: 'Home',
+      date: moment(),
+      data: '',
+      cryptoAmount: 1,
+      status: '',
+      totalStatus: ''
+    })
   }
 
   render() {

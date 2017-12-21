@@ -20,7 +20,7 @@ const Home = (props) => {
           <label htmlFor="date">Date</label>
           <DatePicker selected={props.globalState.date} onChange={props.handleDateChange} />
 
-          <button type="submit">Check Profits</button>
+          <button type="submit" onClick={props.apiCall}>Check Profits</button>
         </div>
       </div>
     </section>
