@@ -13,7 +13,9 @@ const Home = (props) => {
           <h2>Enter Transaction</h2>
 
           <label htmlFor="amount">Crypto amount</label>
-          <input type="text" name="amount" id="amount"/>
+          <input type="text" name="amount" id="amount"
+            onChange={props.onInputChange}
+            value={props.globalState.cryptoAmount} />
 
           <label htmlFor="date">Date</label>
           <DatePicker selected={props.globalState.date} onChange={props.handleDateChange} />
